@@ -1,4 +1,18 @@
-import * as THREE from 'three';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@latest/build/three.module.js';
+
+// Font loader for text geometry
+const fontLoader = new THREE.FontLoader();
+let font;
+
+// Initialize Three.js scene, camera, and renderer
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('menu3D'),
+    antialias: true,
+});
+renderer.setSize(window.innerWidth, window.innerHeight);
+//document.body.appendChild(renderer.domElement);
 
 // JSON data for menu items
 const menuData = [
@@ -15,30 +29,21 @@ const menuData = [
     // Add more menu items as needed
 ];
 
-// Initialize Three.js scene, camera, and renderer
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-// Font loader for text geometry
-const fontLoader = new THREE.FontLoader();
-let font;
-
 // Load font asynchronously
-fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', loadedFont => {
-    font = loadedFont;
-    createMenuItems();
+fontLoader.load('https://cdn.jsdelivr.net/npm/three/examples/fonts/helvetiker_regular.typeface.json', 
+        loadedFont => {
+        font = loadedFont;
+        createMenuItems();
+    }, undefined, 
+    error => {
+        console.error('Font loading error:', error);
 });
 
-// Create menu items
 function createMenuItems() {
     const radius = 150; // Distance of menu items from center
     const angleStep = (Math.PI * 2) / menuData.length; // Angle between each menu item
     const rotationSpeed = 0.005; // Speed of rotation
 
-    // Create text materials
     const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
     menuData.forEach((item, index) => {
@@ -49,7 +54,7 @@ function createMenuItems() {
         // Create text sprite for menu item name
         const textGeo = new THREE.TextGeometry(item.name, {
             font: font,
-            size: 10, // Increase font size for better visibility
+            size: 10,
             height: 0.2,
             curveSegments: 12,
             bevelEnabled: false
@@ -62,7 +67,7 @@ function createMenuItems() {
         // Create text sprite for menu item price
         const priceGeo = new THREE.TextGeometry(item.price, {
             font: font,
-            size: 5, // Adjust price font size
+            size: 5,
             height: 0.2,
             curveSegments: 12,
             bevelEnabled: false
@@ -95,12 +100,15 @@ function createMenuItems() {
     }
 
     // Handle window resize
-    window.addEventListener('resize', function () {
+    function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+    }
+
+    window.addEventListener('resize', onWindowResize);
 
     // Start animation
     animate();
 }
+
