@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             eventCardsContainer.appendChild(eventCard);
         });
+
+        // Animate the <p> elements
+        setTimeout(() => {
+            document.querySelectorAll('section p').forEach(p => {
+                p.style.opacity = '1';
+                p.style.transform = 'translateY(0)';
+            });
+        }, 100); // Delay for smooth transition
     }
 
     // Call function to populate events
