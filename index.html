@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu | Sip & Play Premium</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Include Three.js library -->
-    <script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
-    <!-- Include OrbitControls module -->
-    <script src="https://cdn.jsdelivr.net/npm/three@latest/examples/js/controls/OrbitControls.js"></script>
-    <script type="module" src="/main.js"></script>
-    <canvas id="globe"></canvas>
 </head>
 <body>
 
@@ -27,7 +21,6 @@
 
 <section id="home">
     <div id="hero">
-        <!-- Three.js scene for animated globe -->
         <canvas id="globe"></canvas>
     </div>
     <div id="intro">
@@ -39,14 +32,12 @@
 
 <section id="events">
     <h2>Upcoming Events</h2>
-    <div id="event-cards">
-        <!-- Event cards will be populated dynamically -->
-    </div>
+    <div id="event-cards"></div>
 </section>
 
 <section id="menu">
     <h2>Our 3D Menu</h2>
-    <div id="menu3D"></div>
+    <canvas id="menu3D"></canvas>
 </section>
 
 <section id="about">
@@ -68,7 +59,6 @@
 <section id="contact">
     <h2>Contact Us</h2>
     <div id="contact-form">
-        <!-- Simple contact form -->
         <form action="submit_form.php" method="post">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
@@ -82,13 +72,21 @@
     </div>
     <div id="social-media">
         <h3>Follow Us</h3>
-        <!-- Links to social media profiles -->
     </div>
 </section>
 
 <footer>
     <p>&copy; 2024 Sip & Play Premium. All rights reserved.</p>
 </footer>
+
+<!-- Include Three.js library -->
+<script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
+<!-- Include OrbitControls module -->
+<script src="https://cdn.jsdelivr.net/npm/three@latest/examples/js/controls/OrbitControls.js"></script>
+<!-- Main JS file -->
+<script type="module" src="main.js"></script>
+<!-- Additional JS for dynamic content generation -->
+<script src="script.js"></script>
 
 </body>
 </html>
