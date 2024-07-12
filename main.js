@@ -43,7 +43,7 @@ function init() {
   
     // CAMERA
     camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1500);
-    camera.position.set(0, 0, 1000);
+    camera.position.set(0, -100, 1000);
     cameraTarget = new THREE.Vector3(0, 150, 0);
   
     // SCENE
@@ -61,9 +61,10 @@ function init() {
     pointLight.position.set(0, 100, 90);
     scene.add(pointLight);
   
-    // Add ambient light to make the text brighter
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1000); // Increase the intensity to 1.5
-    scene.add(ambientLight);
+    // Add a new directional light to shine on the text
+    const textDirLight = new THREE.DirectionalLight(0xffffff, 100);
+    textDirLight.position.set(0, 200, 200);
+    scene.add(textDirLight);
   
     materials = [
       new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true }), // front
@@ -107,7 +108,7 @@ function createText() {
   
     let yOffset = 200; // adjust the initial y-offset
   
-    const materials = new THREE.MeshBasicMaterial({ color: 0xffffff }); // white color
+    const materials = new THREE.MeshPhongMaterial({ color: 0xffffff }); // white color
   
     // Add the "Menu" title
     const titleText = "Menu";
@@ -116,9 +117,11 @@ function createText() {
       size: size * 1.5, // make the title slightly larger
       height: depth,
       curveSegments: curveSegments,
-      bevelThickness: bevelThickness,
-      bevelSize: bevelSize,
-      bevelEnabled: bevelEnabled
+      bevelThickness: 10, // increase bevel thickness for a more pronounced effect
+      bevelSize: 5, // increase bevel size for a more rounded effect
+      bevelEnabled: true,
+      bevelOffset: 0, // set bevel offset to 0 for a 360-degree bevel
+      bevelSegments: 10 // increase bevel segments for a smoother bevel
     });
   
     titleGeo.computeBoundingBox();
@@ -146,9 +149,11 @@ function createText() {
         size: size,
         height: depth,
         curveSegments: curveSegments,
-        bevelThickness: bevelThickness,
-        bevelSize: bevelSize,
-        bevelEnabled: bevelEnabled
+        bevelThickness: 10, // increase bevel thickness for a more pronounced effect
+        bevelSize: 5, // increase bevel size for a more rounded effect
+        bevelEnabled: true,
+        bevelOffset: 0, // set bevel offset to 0 for a 360-degree bevel
+        bevelSegments: 10 // increase bevel segments for a smoother bevel
       });
   
       textGeo.computeBoundingBox();
