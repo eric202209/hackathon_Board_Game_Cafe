@@ -1,102 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu | Sip & Play Premium</title>
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  </head>
 
-<header>
-    <nav>
+  <body>
+
+    <header>
+      <nav>
         <ul>
-            <li><a href="#events">Events</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#contact">Contact</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
-    </nav>
-</header>
+      </nav>
+    </header>
 
-<section id="home">
-    <div id="hero">
+    <section id="home">
+      <div id="hero">
         <canvas id="globe"></canvas>
-    </div>
-    <div id="intro">
+      </div>
+      <div id="intro">
         <h1>Welcome to Sip & Play</h1>
         <p>Discover a unique board game cafe experience.</p>
         <a href="#events" class="cta-button">Book an Event</a>
-    </div>
-</section>
+      </div>
+    </section>
 
-<section id="events">
-    <h2>Upcoming Events</h2>
-    <div id="event-cards"></div>
-</section>
+    <section id="events">
+      <h2>Upcoming Events</h2>
+      <div id="event-cards"></div>
+    </section>
 
-<section id="menu">
-    <h2>Our 3D Menu</h2>
-    <div id="three-js-canvas-container">
+    <section id="menu">
+      <h2>Our 3D Menu</h2>
+      <div id="three-js-canvas-container">
         <canvas id="menu3D"></canvas>
-    </div>
-</section>
+      </div>
+    </section>
 
-<section id="about">
-    <h2>About Us</h2>
-    <div id="mission">
+    <section id="about">
+      <h2>About Us</h2>
+      <div id="mission">
         <h3>Our Mission</h3>
         <p>Come in with your friends and family to play any board game from our library of 300+ games!</p>
-    </div>
-    <div id="team">
+      </div>
+      <div id="team">
         <h3>Our Team</h3>
         <p>Eric Chen, Noah7ski, 20SHA07®</p>
-    </div>
-    <div id="testimonials">
+      </div>
+      <div id="testimonials">
         <h3>Testimonials</h3>
         <p>"I love the cozy atmosphere and wide selection of board games at Sip & Play. It's the perfect place to unwind with friends over a game of Settlers of Catan!"</p>
         <p>"As a board game enthusiast, I'm thrilled to have discovered Sip & Play. The staff are friendly and knowledgeable, and the cafe has become my go-to spot for game nights."</p>
         <p>"Sip & Play is not just a cafe; it's an experience. Whether you're a beginner or a seasoned gamer, there's something here for everyone. Highly recommend!"</p>
-    </div>
-</section>
+      </div>
+    </section>
 
-<section id="contact">
-    <h2>Contact Us</h2>
-    <div id="contact-form">
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <div id="contact-form">
         <form action="submit_form.php" method="post">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" placeholder="Your Message" required></textarea>
+          <button type="submit">Send Message</button>
         </form>
-    </div>
-    <div id="address">
+      </div>
+      <div id="address">
         <h3>Visit Us</h3>
         <p>123 Board Game Street, City, Country</p>
-    </div>
-    <div id="social-media">
+      </div>
+      <div id="social-media">
         <h3>Follow Us</h3>
         <img src="/sipnplay.png" alt="Sip & Play Logo" style="width: 100px; height: auto; margin-bottom: 10px;">
         <ul>
-            <li><a href="https://www.sipnplaynyc.com/" target="_blank">Website</a></li>
-            <li><a href="https://www.tiktok.com/@sipnplaynycofficial" target="_blank">TikTok</a></li>
-            <li><a href="https://www.instagram.com/sipnplaynyc/" target="_blank">Instagram</a></li>
+          <li><a href="https://www.sipnplaynyc.com/" target="_blank">Website</a></li>
+          <li><a href="https://www.tiktok.com/@sipnplaynycofficial" target="_blank">TikTok</a></li>
+          <li><a href="https://www.instagram.com/sipnplaynyc/" target="_blank">Instagram</a></li>
         </ul>
-    </div>
-</section>
+      </div>
+    </section>
 
-<footer>
-    <p>&copy; 2024 Sip & Play Premium. All rights reserved.</p>
-</footer>
+    <footer>
+      <p>&copy; 2024 Sip & Play Premium. All rights reserved.</p>
+    </footer>
 
-<!-- Include Three.js library -->
-<script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
-<!-- Include OrbitControls module -->
-<script src="https://cdn.jsdelivr.net/npm/three@latest/examples/js/controls/OrbitControls.js"></script>
-<!-- Main JS file -->
-<script type="module" src="main.js"></script>
-<!-- Additional JS for dynamic content generation -->
-<script src="script.js"></script>
+    <!-- Include Three.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/three@latest/build/three.min.js"></script>
+    <!-- Include OrbitControls module -->
+    <script src="https://cdn.jsdelivr.net/npm/three@latest/examples/js/controls/OrbitControls.js"></script>
+    <!-- Main JS file -->
+    <script type="module" src="main.js"></script>
+    <!-- Additional JS for dynamic content generation -->
+    <script src="script.js"></script>
 
-</body>
+  </body>
+
 </html>
