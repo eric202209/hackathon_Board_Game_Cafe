@@ -1,11 +1,9 @@
-// JavaScript for dynamic content generation
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Example: Populate events dynamically
     const eventsData = [
-        { title: "Board Game Night", 
-          description: "Join us for a fun evening of board games. <br>We're thrilled to host Modern Horizons 3 all weekend!", 
-          prices: {
+        { 
+            title: "Board Game Night", 
+            description: "Join us for a fun evening of board games. <br>We're thrilled to host Modern Horizons 3 all weekend!", 
+            prices: {
                 collectorBooster: { memberPrice: "$395", nonMemberPrice: "$420" },
                 playBooster: { memberPrice: "$255", nonMemberPrice: "$270" }
             },
@@ -18,7 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function populateEvents() {
         const eventCardsContainer = document.getElementById('event-cards');
-        eventCardsContainer.innerHTML = '';
+        if (!eventCardsContainer) {
+            console.error("Unable to find 'event-cards' container in the DOM.");
+            return;
+        }
+        eventCardsContainer.innerHTML = ''; // Clear existing content
 
         eventsData.forEach(event => {
             const eventCard = document.createElement('div');
@@ -35,16 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             eventCardsContainer.appendChild(eventCard);
         });
-
-        // Animate the <p> elements
-        setTimeout(() => {
-            document.querySelectorAll('section p').forEach(p => {
-                p.style.opacity = '1';
-                p.style.transform = 'translateY(0)';
-            });
-        }, 100); // Delay for smooth transition
     }
 
-    // Call function to populate events
+    // Call the function to populate events
     populateEvents();
 });
