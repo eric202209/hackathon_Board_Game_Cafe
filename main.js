@@ -1,129 +1,204 @@
-import * as THREE from "three";
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
+import * as THREE from 'three';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
-
-// Font loader for text geometry
-const fontLoader = new FontLoader();
+let container;
+let camera, cameraTarget, scene, renderer;
+let group, textMesh1, textMesh2, textGeo, materials;
+const menuData = [
+    { name: 'Latte', price: '$4.75 (H) / $5.25 (C)' },
+    { name: 'Cortado', price: '$4.25 (H) / $4.75 (C)' },
+    { name: 'Drip Coffee - Small', price: '$3 (H) / $3.50 (C)' },
+    { name: 'Drip Coffee - Medium', price: '$3.50 (H)' },
+    { name: 'Drip Coffee - Large', price: '$4 (H) / $4.25 (C)' },
+    { name: 'Cafe au Lait', price: '$3.25 (H)' },
+    { name: 'Cappuccino', price: '$4.50 (H)' },
+    { name: 'Mocha', price: '$5.75 (H) / $6.25 (C)' },
+    { name: 'Red Eye', price: '$4.50 (H) / $4.75 (C)' },
+    { name: 'Americano', price: '$3.75 (H) / $4.25 (C)' },
+];
+let text = 'Menu';
+let bevelEnabled = true;
 let font;
 
-// Initialize Three.js scene, camera, and renderer
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const depth = 20;
+const size = 70;
+const hover = 30;
+const curveSegments = 4;
+const bevelThickness = 2;
+const bevelSize = 1.5;
+const mirror = true;
 
-// Select the menu3D canvas element
-const canvas = document.getElementById('menu3D');
+let targetRotation = 0;
+let targetRotationOnPointerDown = 0;
+let pointerX = 0;
+let pointerXOnPointerDown = 0;
+let windowHalfX = window.innerWidth / 2;
 
-// Check if the canvas element exists
-if (canvas) {
-    console.log('Canvas found:', canvas);
+init();
+animate();
 
-    // Initialize the renderer with the selected canvas
-    const renderer = new THREE.WebGLRenderer({
-        canvas: canvas,
-        antialias: true,
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    // JSON data for menu items
-    const menuData = [
-        { name: 'Latte', price: '$4.75 (H) / $5.25 (C)' },
-        { name: 'Cortado', price: '$4.25 (H) / $4.75 (C)' },
-        { name: 'Drip Coffee - Small', price: '$3 (H) / $3.50 (C)' },
-        { name: 'Drip Coffee - Medium', price: '$3.50 (H)' },
-        { name: 'Drip Coffee - Large', price: '$4 (H) / $4.25 (C)' },
-        { name: 'Cafe au Lait', price: '$3.25 (H)' },
-        { name: 'Cappuccino', price: '$4.50 (H)' },
-        { name: 'Mocha', price: '$5.75 (H) / $6.25 (C)' },
-        { name: 'Red Eye', price: '$4.50 (H) / $4.75 (C)' },
-        { name: 'Americano', price: '$3.75 (H) / $4.25 (C)' },
+function init() {
+    container = document.getElementById('menu3D');
+  
+    // CAMERA
+    camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 1, 1500);
+    camera.position.set(0, 0, 1000);
+    cameraTarget = new THREE.Vector3(0, 150, 0);
+  
+    // SCENE
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000);
+    scene.fog = new THREE.Fog(0x000000, 250, 1400);
+  
+    // LIGHTS
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.4);
+    dirLight.position.set(0, 0, 1).normalize();
+    scene.add(dirLight);
+  
+    const pointLight = new THREE.PointLight(0xffffff, 4.5, 0, 0);
+    pointLight.color.setHSL(Math.random(), 1, 0.5);
+    pointLight.position.set(0, 100, 90);
+    scene.add(pointLight);
+  
+    // Add ambient light to make the text brighter
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1000); // Increase the intensity to 1.5
+    scene.add(ambientLight);
+  
+    materials = [
+      new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true }), // front
+      new THREE.MeshPhongMaterial({ color: 0xffffff }) // side
     ];
+  
+    group = new THREE.Group();
+    group.position.y = 100;
+    scene.add(group);
+  
+    loadFont();
+  
+    const plane = new THREE.Mesh(
+      new THREE.PlaneGeometry(10000, 10000),
+      new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 0.5, transparent: true })
+    );
+    plane.position.y = 100;
+    plane.rotation.x = -Math.PI / 2;
+    scene.add(plane);
+  
+    // RENDERER
+    renderer = new THREE.WebGLRenderer({ canvas: container, antialias: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    //container.appendChild(renderer.domElement);
+  
+    window.addEventListener('resize', onWindowResize);
+    document.addEventListener('pointerdown', onPointerDown);
+  }
 
-    // Load font asynchronously
-    fontLoader.load('https://cdn.jsdelivr.net/npm/three/examples/fonts/helvetiker_regular.typeface.json',
-        loadedFont => {
-            font = loadedFont;
-            console.log('Font loaded successfully');
-            createMenuItems();
-        },
-        undefined,
-        error => {
-            console.error('Font loading error:', error);
-        });
+function loadFont() {
+  const loader = new FontLoader();
+  loader.load('https://cdn.jsdelivr.net/npm/three/examples/fonts/helvetiker_regular.typeface.json', function (response) {
+    font = response;
+    createText();
+  });
+}
 
-    function createMenuItems() {
-        console.log('Creating menu items');
-        const radius = 150; // Distance of menu items from center
-        const angleStep = (Math.PI * 2) / menuData.length; // Angle between each menu item
-        const rotationSpeed = 0.004; // Speed of rotation
+function createText() {
+    group.remove(...group.children);
+  
+    let yOffset = 200; // adjust the initial y-offset
+  
+    const materials = new THREE.MeshBasicMaterial({ color: 0xffffff }); // white color
+  
+    // Add the "Menu" title
+    const titleText = "Menu";
+    const titleGeo = new TextGeometry(titleText, {
+      font: font,
+      size: size * 1.5, // make the title slightly larger
+      height: depth,
+      curveSegments: curveSegments,
+      bevelThickness: bevelThickness,
+      bevelSize: bevelSize,
+      bevelEnabled: bevelEnabled
+    });
+  
+    titleGeo.computeBoundingBox();
+    titleGeo.computeVertexNormals();
+  
+    const titleMesh = new THREE.Mesh(titleGeo, materials);
+  
+    // Calculate the title width
+    const titleWidth = titleGeo.boundingBox.max.x - titleGeo.boundingBox.min.x;
+  
+    // Center the title mesh
+    titleMesh.position.x = -titleWidth / 2;
+    titleMesh.position.y = yOffset;
+    titleMesh.position.z = 0;
+    titleMesh.rotation.x = 0;
+    titleMesh.rotation.y = Math.PI * 2;
+    group.add(titleMesh);
+  
+    yOffset -= 150; // move down 50 units for the menu items
+  
+    menuData.forEach((item, index) => {
+      const text = `${item.name} - ${item.price}`;
+      const textGeo = new TextGeometry(text, {
+        font: font,
+        size: size,
+        height: depth,
+        curveSegments: curveSegments,
+        bevelThickness: bevelThickness,
+        bevelSize: bevelSize,
+        bevelEnabled: bevelEnabled
+      });
+  
+      textGeo.computeBoundingBox();
+      textGeo.computeVertexNormals();
+  
+      const textMesh = new THREE.Mesh(textGeo, materials);
+  
+      // Calculate the text width
+      const textWidth = textGeo.boundingBox.max.x - textGeo.boundingBox.min.x;
+  
+      // Center the text mesh
+      textMesh.position.x = -textWidth / 2;
+      textMesh.position.y = yOffset;
+      textMesh.position.z = 0;
+      textMesh.rotation.x = 0;
+      textMesh.rotation.y = Math.PI * 2;
+      group.add(textMesh);
+  
+      yOffset -= 100; // move down 100 units for the next item
+    });
+  }
 
-        const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+function onWindowResize() {
+  windowHalfX = window.innerWidth / 2;
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
 
-        menuData.forEach((item, index) => {
-            const angle = angleStep * index;
-            const x = radius * Math.cos(angle);
-            const z = radius * Math.sin(angle);
+function onPointerDown(event) {
+  if (event.isPrimary === false) return;
 
-            // Create text sprite for menu item name
-            const textGeo = new TextGeometry(item.name, {
-                font: font,
-                size: 10,
-                depth: 0.2,
-                curveSegments: 12,
-                bevelEnabled: false
-            });
-            const textMesh = new THREE.Mesh(textGeo, textMaterial);
-            textMesh.position.set(x, 0, z);
-            textMesh.rotation.y = -angle + Math.PI / 2; // Rotate to face center
-            scene.add(textMesh);
+  pointerXOnPointerDown= event.clientX;
+  targetRotationOnPointerDown = targetRotation;
+  document.addEventListener('pointermove', onPointerMove);
+  document.addEventListener('pointerup', onPointerUp);
+}
 
-            // Create text sprite for menu item price
-            const priceGeo = new TextGeometry(item.price, {
-                font: font,
-                size: 5,
-                depth: 0.2,
-                curveSegments: 12,
-                bevelEnabled: false
-            });
-            const priceMesh = new THREE.Mesh(priceGeo, textMaterial);
-            priceMesh.position.set(x, -10, z); // Lower the price position
-            priceMesh.rotation.y = -angle + Math.PI / 2; // Rotate to face center
-            scene.add(priceMesh);
-        });
+function onPointerMove(event) {
+  pointerX = event.clientX;
+  targetRotation = targetRotationOnPointerDown + (pointerX - pointerXOnPointerDown) * 0.002;
+  group.rotation.y = targetRotation;
+}
 
-        // Add ambient light to the scene
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-        scene.add(ambientLight);
+function onPointerUp() {
+  document.removeEventListener('pointermove', onPointerMove);
+  document.removeEventListener('pointerup', onPointerUp);
+}
 
-        // Add directional light to the scene
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-        directionalLight.position.set(0, 25, 0);
-        scene.add(directionalLight);
-
-        // Set camera position
-        camera.position.set(0, 25, 280);
-
-        // Render loop
-        function animate() {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-
-            // Rotate scene
-            scene.rotation.y += rotationSpeed;
-        }
-
-        // Handle window resize
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-
-        window.addEventListener('resize', onWindowResize);
-
-        // Start animation
-        animate();
-    }
-} else {
-    console.error('Canvas not found');
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
 }
