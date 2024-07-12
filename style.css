@@ -182,8 +182,8 @@ section p {
     max-width: 800px;
     text-align: center; 
     transition: opacity var(--transition-time), transform var(--transition-time);
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 1;
+    transform: translateY(0);
     color: var(--text-color);
 }
 
