@@ -55,7 +55,7 @@ if (canvas) {
         console.log('Creating menu items');
         const radius = 150; // Distance of menu items from center
         const angleStep = (Math.PI * 2) / menuData.length; // Angle between each menu item
-        const rotationSpeed = 0.005; // Speed of rotation
+        const rotationSpeed = 0.004; // Speed of rotation
 
         const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
@@ -97,11 +97,11 @@ if (canvas) {
 
         // Add directional light to the scene
         const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
-        directionalLight.position.set(0, 50, 0);
+        directionalLight.position.set(0, 25, 0);
         scene.add(directionalLight);
 
         // Set camera position
-        camera.position.set(0, 50, 200);
+        camera.position.set(0, 25, 280);
 
         // Render loop
         function animate() {

@@ -11,10 +11,10 @@
 
 /* 2. CSS Variables */
 :root {
-    --primary-color: #007bff;
-    --secondary-color: #0056b3;
-    --background-color: #f8f8f8;
-    --text-color: #333;
+    --primary-color: #e86149; 
+    --secondary-color: #00adb5;
+    --background-color: #f5f5f5; 
+    --text-color: #030405; 
     --font-family: 'Arial', sans-serif;
     --border-radius: 5px;
     --transition-time: 0.3s;
@@ -39,6 +39,7 @@ h1, h2, h3 {
 #mission, #team, #testimonials {
     text-align: center;
     margin-top: 40px; 
+    background-color: #f0f0f0;
 }
 
 #mission h3,
@@ -58,7 +59,7 @@ h1, h2, h3 {
 
 /* 5. Navigation Styles */
 header {
-    background-color: #fff;
+    background-color: #faebd7;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     padding: 10px 0;
     position: sticky;
@@ -69,6 +70,8 @@ header {
 nav ul {
     list-style-type: none;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li {
@@ -77,30 +80,32 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #555;
+    color: #333;
     text-decoration: none;
     padding: 10px 15px;
     transition: color var(--transition-time), background-color var(--transition-time);
 }
 
 nav ul li a:hover {
-    color: #000;
-    background-color: #eee;
+    color: #e86149;
+    background-color: transparent; 
     border-radius: var(--border-radius);
 }
 
 /* 6. Hero Section Styles */
 #hero {
-    background-color: var(--primary-color);
-    color: #fff;
+    background-image: url('/background.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #f0f0f0;
     padding: 80px 0;
     text-align: center;
 }
 
 #intro {
-    background-color: #fff;
+    background-color: #f0f0f0;
     padding: 40px;
-    margin-top: -50px;
+    margin-bottom: 10px;
     border-radius: var(--border-radius);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -114,6 +119,15 @@ nav ul li a:hover {
     padding: 10px 20px;
     border-radius: var(--border-radius);
     transition: background-color var(--transition-time);
+    margin-top: 20px;
+}
+
+section {
+    padding: 60px 20px;
+    background-color: #f0f0f0;
+    margin-bottom: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .cta-button:hover {
@@ -122,11 +136,13 @@ nav ul li a:hover {
 
 /* 7. Section Headings and Content Styles */
 section {
-    padding: 60px 20px;
-    background-color: #fff;
+    background-image: url('/bricks.jpg');
+    background-size: cover;
+    background-position: center;
     margin-bottom: 40px;
     border-radius: var(--border-radius);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: var(--text-color); 
 }
 
 section h2 {
@@ -145,6 +161,7 @@ section p {
     transition: opacity var(--transition-time), transform var(--transition-time);
     opacity: 0;
     transform: translateY(20px);
+    color: var(--text-color);
 }
 
 /* 8. Form Styles */
@@ -189,8 +206,8 @@ form button[type="submit"]:hover {
 footer {
     text-align: center;
     padding: 20px;
-    background-color: var(--text-color);
-    color: #fff;
+    background-color: var(--background-color);
+    color: var(--text-color);
     position: relative;
     bottom: 0;
     width: 100%;
@@ -243,26 +260,43 @@ footer {
 
 /* 11. Styles for menu3D Canvas */
 #menu3D {
-    width: 100%;
-    height: 400px;
+    width: 80%;
+    height: 300px;
+    margin: 0 auto;
     position: relative;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    overflow: hidden; 
+    background-color: #000; 
 }
 
-.three-js-canvas-container {
+#three-js-canvas-container {
+    margin-left: -20px;
     width: 100%;
-    height: 400px;
+    height: 100%;
 }
 
 /* 12. Styles for Menu Items */
-.menu-item {
-    font-size: 24px;
-    font-weight: bold;
+.menu-item-text {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
     color: #fff;
     text-align: center;
+    margin-bottom: 5px;
 }
 
 .menu-item:hover {
     color: #ff69b4;
+}
+
+/* Styles for menu item price */
+.menu-item-price {
+    font-family: 'Arial', sans-serif; 
+    font-size: 12px; 
+    color: #ccc; 
+    text-align: center;
+    margin-bottom: 20px; 
 }
 
 /* 13. Centering Elements */
