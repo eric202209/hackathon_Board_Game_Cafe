@@ -1,73 +1,28 @@
-/* 1. Reset CSS Default Values */
-*,
-*::before,
-*::after {
+/* Global Styles */
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* 2. CSS Variables */
-:root {
-  --primary-color: #e86149;
-  --secondary-color: #00adb5;
-  --background-color: #f5f5f5;
-  --text-color: #030405;
-  --font-family: 'Arial', sans-serif;
-  --border-radius: 5px;
-  --transition-time: 0.3s;
-}
-
-/* 3. Global Styles */
 body {
-  font-family: var(--font-family);
-  background-color: var(--background-color);
-  color: var(--text-color);
+  font-family: 'Montserrat', sans-serif;
+  background-color: #F5DEB3;
+  /* tan background color */
+  color: #333;
   line-height: 1.6;
-  transition: background-color var(--transition-time);
 }
 
-/* 4. Basic Styling for Headers */
-h1, h2, h3 {
-  color: var(--text-color);
-  margin-bottom: 20px;
-  text-align: center;
-  transition: transform var(--transition-time);
-}
-
-h1:hover, h2:hover, h3:hover {
-  transform: scale(1.1);
-}
-
-/* Styling for sections */
-section {
-  text-align: center;
-  margin-top: 40px;
-  background-color: #f0f0f0;
-  padding: 60px 20px;
-  border-radius: var(--border-radius);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color var(--transition-time);
-}
-
-section:hover {
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* 5. Navigation Styles */
+/* Navigation Styles */
 header {
-  background-color: #faebd7;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #964B00;
+  /* warm brown color */
   padding: 10px 0;
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: background-color var(--transition-time);
-}
-
-header:hover {
-  background-color: #f5f5f5;
+  border-bottom: 2px solid #786C3B;
+  /* darker brown color */
 }
 
 nav ul {
@@ -80,7 +35,7 @@ nav ul {
 nav ul li {
   display: inline-block;
   margin: 0 10px;
-  transition: transform var(--transition-time);
+  transition: transform 0.3s;
 }
 
 nav ul li:hover {
@@ -88,27 +43,28 @@ nav ul li:hover {
 }
 
 nav ul li a {
-  color: #333;
+  color: #fff;
   text-decoration: none;
   padding: 10px 15px;
-  border-radius: var(--border-radius);
-  transition: color var(--transition-time), background-color var(--transition-time);
+  border-radius: 5px;
+  transition: color 0.3s, background-color 0.3s;
 }
 
 nav ul li a:hover {
-  color: var(--primary-color);
-  background-color: transparent;
+  color: #333;
+  background-color: #ffd7be;
+  /* light beige color */
 }
 
-/* 6. Hero Section Styles */
+/* Hero Section Styles */
 #hero {
-  background-image: url('/background.jpg');
+  background-image: url('/coffee-background.jpg');
   background-size: cover;
   background-position: center;
   color: #f0f0f0;
   padding: 80px 0;
   text-align: center;
-  transition: background-color var(--transition-time);
+  transition: background-color 0.3s;
 }
 
 #hero:hover {
@@ -119,9 +75,9 @@ nav ul li a:hover {
   background-color: #f0f0f0;
   padding: 40px;
   margin-bottom: 10px;
-  border-radius: var(--border-radius);
+  border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color var(--transition-time);
+  transition: background-color 0.3s;
 }
 
 #intro:hover {
@@ -130,13 +86,14 @@ nav ul li a:hover {
 
 .cta-button {
   display: inline-block;
-  background-color: var(--primary-color);
-  color: #fff;
+  background-color: #ffd7be;
+  /* light beige color */
+  color: #333;
   text-decoration: none;
   text-align: center;
   padding: 10px 20px;
-  border-radius: var(--border-radius);
-  transition: background-color var(--transition-time);
+  border-radius: 5px;
+  transition: background-color 0.3s;
   margin-top: 20px;
   animation: bounce 2s infinite;
 }
@@ -145,286 +102,79 @@ nav ul li a:hover {
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
+
   100% {
     transform: translateY(0);
   }
 }
 
 .cta-button:hover {
-  background-color: var(--secondary-color);
+  background-color: #ffc499;
+  /* darker beige color */
 }
 
-/* 7. Section Headings and Content Styles */
+/* Section Styles */
 section {
-    background-image: url('/bricks.jpg');
-    background-size: cover;
-    background-position: center;
-    margin-bottom: 40px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    color: var(--text-color); 
-}
-
-section h2 {
-    text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 40px;
-    color: var(--text-color);
-}
-
-section p {
-    font-size: 1.1em;
-    line-height: 1.8;
-    margin: 0 auto;
-    max-width: 800px;
-    text-align: center; 
-    transition: opacity var(--transition-time), transform var(--transition-time);
-    opacity: 0;
-    transform: translateY(20px);
-    color: var(--text-color);
-}
-
-/* 8. Form Styles */
-form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-form input[type="text"],
-form input[type="email"],
-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: var(--border-radius);
-    font-size: 1em;
-}
-
-form textarea {
-    height: 150px;
-}
-
-form button[type="submit"] {
-    display: block; 
-    margin: 0 auto; 
-    background-color: var(--primary-color);
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    font-size: 1.2em;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: background-color var(--transition-time);
-}
-
-form button[type="submit"]:hover {
-    background-color: var(--secondary-color);
-}
-
-/* 9. Footer Styles */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-
-/* 10. Responsive Design */
-@media (max-width: 768px) {
-    nav ul li {
-        display: block;
-        margin: 10px 0;
-    }
-
-    form {
-        padding: 0 20px;
-    }
-}
-
-@media (max-width: 600px) {
-    #intro {
-        padding: 20px;
-        margin-top: 0;
-    }
-
-    .cta-button {
-        padding: 8px 16px;
-        font-size: 1em;
-    }
-
-    section {
-        padding: 30px 10px;
-    }
-
-    section h2 {
-        font-size: 2em;
-        margin-bottom: 20px;
-    }
-
-    form input[type="text"],
-    form input[type="email"],
-    form textarea {
-        padding: 8px;
-        font-size: 0.9em;
-    }
-
-    form button[type="submit"] {
-        padding: 10px 16px;
-        font-size: 1em;
-    }
-}
-
-/* 11. Styles for menu3D Canvas */
-#menu3D {
-    width: 80%;
-    height: 300px;
-    margin: 0 auto;
-    position: relative;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    overflow: hidden; 
-    background-color: #000; 
-}
-
-#three-js-canvas-container {
-    margin-left: -20px;
-    width: 100%;
-    height: 100%;
-}
-
-/* 12. Styles for Menu Items */
-.menu-item-text {
-    font-family: 'Arial', sans-serif;
-    font-size: 18px;
-    color: #fff;
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-.menu-item:hover {
-    color: #ff69b4;
-}
-
-/* Styles for menu item price */
-.menu-item-price {
-    font-family: 'Arial', sans-serif; 
-    font-size: 12px; 
-    color: #ccc; 
-    text-align: center;
-    margin-bottom: 20px; 
-}
-
-/* 13. Centering Elements */
-.center-block {
-    display: block;
-    width: 300px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.inline-center {
-    display: inline-block;
-    text-align: center;
-}
-
-.flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.center-absolute {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.auto-margin {
-    display: block;
-    margin: 0 auto;
-}
-
-/*14. Centering elements */
-#intro, #contact-form, #address, #social-media {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    max-width: 800px; 
-    margin: 0 auto; 
-    padding: 20px;
-}
-
-/*15. Center Event Cards */
-#event-cards {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.event-card {
-    background-color: #fff;
-    padding: 20px;
-    margin: 20px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    max-width: 600px;
-    width: 100%;
-    text-align: center;
-    line-height: 1.6;
-}
-
-.event-card h3, .event-card p, .event-card a {
-    margin: 10px 0;
-}
-
-/*16. Additional Styles for Contact Section */
-#contact {
-  background-color: #f5f5f5;
-  padding: 60px 20px;
   text-align: center;
-}
-
-#social-media {
-  margin-top: 30px;
-}
-
-#social-media h3 {
-  margin-bottom: 15px;
-}
-
-#social-media ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-#social-media ul li {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-#social-media ul li a {
-  color: #333;
-  text-decoration: none;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
+  margin-top: 40px;
+  background-color: #F5DEB3;
+  /* tan background color */
+  padding: 60px 20px;
   border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
 }
 
-#social-media ul li a:hover {
-  background-color: var(--primary-color);
-  color: #fff;
+section:hover {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#social-media img {
-  display: block;
-  margin: 0 auto;
+h1,
+h2,
+h3 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  transition: transform 0.3s;
 }
+
+h1:hover,
+h2:hover,
+h3:hover {
+  transform: scale(1.1);
+}
+
+/* Coffee Cup Icon */
+.coffee-cup-icon {
+  position: relative;
+  display: inline-block;
+  margin: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ffd7be;
+  /* light beige color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.coffee-cup-icon:hover {
+  transform: scale(1.1);
+}
+
+.coffee-cup-icon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px
