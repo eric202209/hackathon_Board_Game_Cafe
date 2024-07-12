@@ -2,8 +2,10 @@
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
+    max-width: 960px;
+    min-width: 450px;
+    margin: auto;
+    padding: 0px;
     box-sizing: border-box;
 }
 
@@ -33,6 +35,27 @@ h1, h2, h3 {
     text-align: center;
 }
 
+/* Styling for sections */
+#mission, #team, #testimonials {
+    text-align: center;
+    margin-top: 40px; 
+}
+
+#mission h3,
+#team h3,
+#testimonials h3 {
+    font-size: 1.5em;
+}
+
+#mission p,
+#team p,
+#testimonials p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 20px auto; 
+    max-width: 800px;
+}
+
 /* 5. Navigation Styles */
 header {
     background-color: #fff;
@@ -49,7 +72,7 @@ nav ul {
 }
 
 nav ul li {
-    display: inline-block;
+    display: inline-block; 
     margin: 0 10px;
 }
 
@@ -87,6 +110,7 @@ nav ul li a:hover {
     background-color: var(--primary-color);
     color: #fff;
     text-decoration: none;
+    text-align: center;
     padding: 10px 20px;
     border-radius: var(--border-radius);
     transition: background-color var(--transition-time);
@@ -117,7 +141,7 @@ section p {
     line-height: 1.8;
     margin: 0 auto;
     max-width: 800px;
-    text-align: center; /* Center-align text */
+    text-align: center; 
     transition: opacity var(--transition-time), transform var(--transition-time);
     opacity: 0;
     transform: translateY(20px);
@@ -145,6 +169,8 @@ form textarea {
 }
 
 form button[type="submit"] {
+    display: block; 
+    margin: 0 auto; 
     background-color: var(--primary-color);
     color: #fff;
     border: none;
@@ -273,9 +299,9 @@ footer {
 #intro, #contact-form, #address, #social-media {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center items horizontally */
-    max-width: 800px; /* Restrict width */
-    margin: 0 auto; /* Center container */
+    align-items: center; 
+    max-width: 800px; 
+    margin: 0 auto; 
     padding: 20px;
 }
 
@@ -295,6 +321,7 @@ footer {
     max-width: 600px;
     width: 100%;
     text-align: center;
+    line-height: 1.6;
 }
 
 .event-card h3, .event-card p, .event-card a {
